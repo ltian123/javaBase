@@ -1,0 +1,13 @@
+String[]arr = {"1","2","3","4","5","6","7","8","9","0",
+"+","-","=",".",};
+for(int i = 0;i<arr.length;i++){
+{
+	Button b = new Button(arr[i]);
+	f.add(b);
+	b.addActionLisener(this);
+
+}
+
+actionPerfomed(e){
+
+}

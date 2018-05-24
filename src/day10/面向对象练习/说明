@@ -1,0 +1,15 @@
+定义一个班级类Grade,有属性如下：
+	int gid;
+	String gName;
+	String gDesc;
+	对上面属性封装
+Student类
+	int sid;
+	String sName;
+	int age;
+	String sex;
+	Grade grade;
+	Student[]friends;
+	封闭属性
+	构造方法
+Test类中，产生一个学生，并给他的属性赋值	

@@ -1,0 +1,9 @@
+1. 产生类对象的三种方法：
+	a.通过实例对象的getClass()方法获取
+	b.通过Class类中的静态方法forName(String path)来获取
+	c.通过一个类的class静态属性获取
+2.class对象有什么用？
+	通过class对象中的方法getModifiers()可得到一个数字，用该数字可获取定义该类时的一些详细信息
+	通过class对象可以得到类的一些描述信息，比如类名，包名，是否为接口等 ..
+	通过getDeclaredMethods()可得到当前类中定义的所有方法
+	通过getDeclaredFields()可得到当前类中定义的所有属性

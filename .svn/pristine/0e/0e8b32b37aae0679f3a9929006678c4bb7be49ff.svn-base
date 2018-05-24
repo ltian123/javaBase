@@ -1,0 +1,7 @@
+编写两个方法分别用于测试ArrayList与LinkedList的效率问题
+要求如下：
+	定义一个方法，用于向ArrayList中的尾部添加10万个integer类型的数据，并统计用时多少？
+	定义一个方法，用于向ArrayList中的头部添加10万个integer类型的数据，并统计用时多少？
+	
+	定义一个方法，用于向LinkedList中尾部添加10万个integer类型的数据，并统计用时多少？
+	定义一个方法，用于向LinkedList中头部添加10万个integer类型的数据，并统计用时多少？

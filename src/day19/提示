@@ -1,0 +1,16 @@
+定义一个类Node:int i;int j;
+产生多个node对象组合成一条蛇，并放入LinkedList集合中
+定义本游戏的行数和列数（30，30）
+for(int i = 0;i<30;i++)
+{
+	for(int j = 0;j<30;j++){
+		if(集合中存在当前位置元素)
+		｛
+		syso("#")
+		}
+		else{
+		
+		syso(" ");
+		}	
+	}
+}

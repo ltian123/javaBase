@@ -1,0 +1,26 @@
+package day35.反射;
+
+public class Person {
+	public int sid;
+}
+class Stu extends Person
+{
+	public int id;
+	protected String name;
+	private int age;
+	public Stu(String name,int age){
+		
+	}
+	public static String getName()
+	{
+		return "";
+	}
+	protected int add(int x,int y)
+	{
+		return x+y;
+	}
+	private void show()
+	{
+		System.out.println("999999");
+	}
+}

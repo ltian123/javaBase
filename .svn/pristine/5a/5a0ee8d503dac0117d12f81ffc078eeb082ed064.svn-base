@@ -1,0 +1,14 @@
+package day36;
+import java.io.*;
+public class Test {
+	public static void main(String[] args)throws Exception {
+		write();
+	}
+	public static void write()throws Exception
+	{
+		String src = "d:/work/1.txt";
+		FileWriter fw = new FileWriter(src);
+		fw.write("今天\r\n天\r气\n真不错");
+		fw.close();
+	}
+}

@@ -1,0 +1,12 @@
+1.用两个线程从ftp上下载一个文件到本地，
+	提示：获取网络文件大小时，建议用inputStream.available();
+2.定义一个Message类，有属性如下：
+	String content;
+	String fromWho;
+	String toWho;
+	int type;
+	/*type=0表示拥抱
+	=1表示微笑
+	=2表示送花*/
+	要求编写一个聊天程序，服务器发Message对象给client,客户端要
+	能解析出Message对象中的内容

@@ -1,0 +1,66 @@
+package day36.作业;
+import java.net.*;
+import java.io.*;
+public class URLCopy {
+	public static void main(String[] args) {
+		String src = "ftp://teacher:itany123@172.16.1.11/wbs16072/1.txt";
+		String dest = "d:/work/2.txt";
+		
+	}
+	public static void manager(String src,String dest)throws Exception{
+		URL url = new URL(src);
+		URLConnection conn = url.openConnection();
+//		int size = conn.getContentLength();
+		int size = conn.getInputStream().available();
+		
+		System.out.println("文件大小评估为："+size);
+		//任务量分配
+		CopyThread a = new CopyThread(src,dest,0,size/2);
+		a.start();
+		CopyThread b = new CopyThread(src,dest,size/2,Integer.MAX_VALUE);
+		b.start();
+		
+	}
+}
+class CopyThread extends Thread
+{
+	String src;
+	String dest;
+	long begin;
+	long end;
+	public CopyThread(String src,String dest,long begin,long end){
+		this.src = src;
+		this.dest = dest;
+		this.begin = begin;
+		this.end = end;
+	}
+	public void run()
+	{
+		System.out.println(getName()+":从"+begin+",到"+end+"结束!");
+		URL url = null;
+		try {
+			url = new URL(src);
+			InputStream in = url.openStream();
+			in.skip(begin);
+			
+			//输出流
+			RandomAccessFile out = new RandomAccessFile(dest,"rw");
+			out.seek(begin);
+			long i;
+			for(i = begin;i<end;i++ ){
+				int m = in.read();
+				/*在最后一个线程会用到，有可能评估出来的size过小，则end一定会大于文件长度
+				 * 读取到文件尾部结束循环*/
+				if(m==-1){
+					break;
+				}
+				out.write(m);
+			}
+			System.out.println(getName()+":从"+begin+"开始，到"+i);
+			in.close();
+			out.close();
+		} catch (Exception e) {
+			
+		}
+	}
+}

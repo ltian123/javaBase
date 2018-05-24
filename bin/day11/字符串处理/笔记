@@ -1,0 +1,15 @@
+charAt
+compareTo
+contains
+toCharArray()
+b = getBytes("gbk")与new String(b,"gbk")
+equalsIgnoreCase忽略大小写比较两个字符串是否相等 
+split(",")按某种字符串去拆分大字符串，返回字符串数组
+
+indexOf返回字符或字符串出现的位置
+replace用于替换字符或字符串
+substring
+
+大小写转换
+toLowerCase
+toUpperCase

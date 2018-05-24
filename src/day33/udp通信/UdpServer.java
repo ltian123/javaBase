@@ -1,0 +1,19 @@
+package day33.udp通信;
+import java.net.*;
+public class UdpServer {
+	public static void main(String[] args)throws Exception {
+		//1.定义邮递员
+		DatagramSocket ds = new DatagramSocket(8000);
+		//2.用来存放数据的字节数组
+		byte[]bs = new byte[1000];
+		//2.定义信封
+		DatagramPacket dp = new DatagramPacket(bs,bs.length);
+		
+		//邮递员接收对方发来的信息，并赋值给当前信封
+		while(true){
+			//如果没有信息发来，则程序会阻塞在此处
+			ds.receive(dp);
+			System.out.println("server收到"+dp.getAddress()+"的内容："+new String(bs,0,dp.getLength()));
+		}	
+	}
+}

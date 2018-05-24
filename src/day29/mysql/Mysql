@@ -1,0 +1,167 @@
+1.打开数据库：mysql -u root -p
+2.目前市场上的主流数据库产品大概有下面这些：
+	mysql sun
+	oracle 甲骨文
+	sql server 微软
+	DB2 IBM
+	sybase 赛贝斯
+3.sql 语言：（Structred Query Language）结构化查询语言
+	DDL(Data Definition Language),主要定义数据库对象（库，表，列）的操作
+	create(创建）、drop(删除），alter(修改),rename(改名字）;
+	
+	DML(Data Manipulation language)数据操作语言，对数据库数据（记录）进行操作
+		insert,delete,update,select
+		CURD:c-create,U-update,r-read查询，D-delete
+	DCL(Data Control Language)数据控制语言，定义数据库，表，字段，用户访问权限
+		
+		用于查看当前数据库产品中包含哪些数据库
+	show databases;
+		information_schema：主要存放一些系统的数据库对象数据
+		mysql:存放了系统的用户权限和帮助信息,注意，不能删除这个数据库
+		test:系统自动创建的一个测试数据库，任何人都可以使用
+		
+		//创建一个数据库，名字为java
+	create database java;
+	
+	对数据库进行操作前一定要用
+	use java;表示下面操作是在java这个数据库中操作
+	
+	
+	创建表
+		数据类型
+			int(4)表示整数类型，4表示可以存放4位数字
+			char(32),varchar(32)
+		create table 表名（
+		列名 类型,
+		列名 类型,
+		列名 类型,
+		列名 类型
+		);
+	查看表
+		查看在当前数据库中一共有哪些表
+		show tables;
+		show create table stu_t;
+		desc student;
+	
+	创建student表，要求有编号
+	（id,int,10位
+	name,varchar 20位
+	age 5位
+	出生日期（birthday）,date
+						
+	删除数据库
+		drop database abc;
+	删除表
+		drop table stu_t;	
+	改表名
+		alter table student rename stu;	
+		rename table stu to stu_t;
+	修改表的列类型
+		alter table 表名 modify 列名 新的列类型
+		alter table stu_t modify birthday char(32);
+	修改列名
+		alter table stu_t change birthday birth date;
+	添加新的一列:
+		alter table stu_t add salary int;
+	删除一列:
+		alter table stu_t drop salary;
+	
+	约束
+		主键约束：非空且唯一
+			语法：primary key;
+		外键约束：
+			让t_class中的主键id作为t_student中c_id的外键
+			alter table t_student add foreign key(c_id) references t_class(id);
+			constraint fk_表名 foreign key(c_id) references t_class(id);
+			
+			mysql> create table t_student(id int auto_increment primary key,name varchar(32)
+			,age int not null default 23,c_id int,constraint fk_st foreign key(c_id)referenc
+			es t_class(id));
+	插入数据：
+		如果没法录入汉字，则 set names gbk;
+		 insert into stu_t(id,name,age,birth) values(1,'张三',23,'1980-7-02');
+		 insert into stu_t(id,age)values(2,12);
+		 insert into stu_t values (3,'宝哥',18,'1985/05/04');
+	删除数据：
+		//删除所有id不等于1的数据
+		delete from user where id<>1;
+	修改数据：
+		update user set name='王凤',age = 12 where id = 1 or age = 100;
+		or：或
+		and:同时
+		>,<,<>(不等于),>=,<=
+	查询记录
+		查询所有列信息
+		 select * from stu_t;
+		 查询id,name这两列数据
+		 select id,name from stu_t;、
+		
+		is null:查询为空的所有数据
+		is not null:...
+		
+		ifnull:若不为null则显示num1,为null则显示num2
+		 如：select name,ifnull(m_id,'没领导')from emp;
+		 	显示结果为：张三丰       | 没领导
+		between a and b,[a,b]
+		in
+		not in
+		distinct:去除重复数据
+		模糊查询:like,not like
+			_表示任意一个，且只是一个字符
+			%表示任意0个或多个字符
+		
+		select * from user where age not in (20,22,25);
+		/*查询所有age介于20到25之间的记录*/
+		select * from user where age between 20 and 25;
+	聚合函数：
+		求平均数avg(列名),如select avg(age) from user;
+		count(*)统计有多少行,如select count(id) from user;
+		count(列名）统计不包括空的列名的个数
+		max(列名),min(列名)如：select min(age)from user;
+		求和，sum(列名);select sum(age)from user;
+	order by排序：
+			select * from emp order by salary;默认按salary升序排列
+			select * from emp order by salary desc;降序，（asc升序）
+	group by:分组
+			select * from emp group by m_id;
+	子查询：当前查询的条件中用到另外一个查询的结果
+		查询员工表中工资大于平均工资的所有员工
+		select * from emp where salary>(select avg(salary)from emp);
+		从员工表中查询所有部门编号大于2的记录	
+		select * from emp where dept_id in (select id from dept where id>2);
+	having:其功能跟where差不多，区别：
+		having可以使用聚合函数
+		where不可使用聚合函数	
+		//计算员工表中每个部门的平均工资	
+	select dept_id ,avg(salary) from emp group by dept_id;
+	//获取平均工次大于1000的所有部门的平均工资
+	mysql> select dept_id ,avg(salary) from emp group by dept_id
+	 having（此处不可使用where） avg(salary)>1000;
+	
+	分页：limit
+		显示前两条记录
+		select * from emp limit 2;
+		从第2条记录之后的数据开始显示，只显示1条
+		select * from emp limit 2,3;
+	连接查询：
+		create table stu(id int,name char(30));
+		 create table course(id int,name char(30));
+		 左连接：显示以左表为主，如果左表中某行在右表中没有匹配，则结果中对应行右表部分为空
+		select * from stu left join course on stu.id=course.id;
+		右连接：显示以右表为主，如果左表中某行在右表中没有匹配的，则显示为空
+		 select * from stu right join course on stu.id=course.id; 
+	练习：创建两张表：
+		部门表（dept）:
+			编号（id,主键），名称（name）,描述（description）
+		员工表（emp):
+			编号(id,主键）,名称（name),性别（gender),所属部门（dept_id,外键）
+			入职时间(joinTime),工资（salary),奖金（money),地址（address),
+			描述（description),所属领导（m_id,外键，领导的数据也存放在员工表中)
+		向部门表和员工中插入5到10条数据，
+		修改数据
+		删除数据
+		查询
+		
+	
+		 
+			
